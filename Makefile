@@ -9,7 +9,7 @@ deps:
 run:
 	go run ./cmd/$(CMD_ROOT)
 test:
-	go test -json ./... -cover -coverprofile c.out
+	go test -v ./... -cover -coverprofile c.out
 build:
 	go build -o ./bin/$(CMD_ROOT) ./cmd/$(CMD_ROOT)_${GOOS}_${GOARCH}
 build_production:
