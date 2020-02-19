@@ -1,0 +1,44 @@
+image: golang:1.13-alpine
+stages:
+  - test
+  - build
+  - release
+  - package
+  - publish
+
+test:
+  stage: test
+  cache:
+    key: ${CI_PROJECT_REF}_${CI_COMMIT_REF_NAME}
+    paths:
+      - ./vendor
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - ./vendor
+      - ./c.out
+  before_script:
+    - apt-get update
+    - apt-get install -y make g++
+  script:
+    - make deps
+    - make test
+
+version bump:
+  stage: release
+  only:
+    - master
+  image: usvc/semver:gitlab-latest
+  before_script:
+    - apk add openssh
+    - mkdir -p ~/.ssh
+    - 'printf -- "${DEPLOY_KEY}" | base64 -d > ~/.ssh/id_rsa'
+    - chmod 600 -R ~/.ssh/id_rsa
+    - ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
+  script:
+    - git remote set-url origin "git@gitlab.com:${CI_PROJECT_PATH}.git"
+    - git checkout master
+    - semver bump --git --apply
+    - git push origin master --verbose --tags
+  after_script:
+    - rm -rf ~/.ssh/*
