@@ -26,7 +26,7 @@ import "github.com/usvc/password"
 
 ```go
 plaintext := "abcd1234!@#$"
-hash, salt, err := password.Hash(plaintext)
+hash, salt, err := password.Hash(plaintext, 32)
 // ...
 // store the hash and salt
 // ...

@@ -22,7 +22,7 @@ func (s *PasswordTests) TestEndToEnd() {
 		"hihih",
 		"hihihih",
 	}
-	hash, salt, _ := Hash(expectedPlaintext)
+	hash, salt, _ := Hash(expectedPlaintext, 32)
 	err := Verify(expectedPlaintext, hash, salt)
 	s.Nil(err)
 	for _, otherPlaintext := range unexpectedPlaintexts {

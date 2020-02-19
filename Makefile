@@ -21,25 +21,24 @@ build_production:
 			-X main.Timestamp=$$(date +'%Y%m%d%H%M%S') \
 			-extldflags 'static' \
 			-s -w" \
-		-o ./bin/.$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT} \
+		-o ./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT} \
 		./cmd/$(CMD_ROOT)
-	rm -rf ./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
-	upx -9 -v \
-		./bin/.$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT} \
-		-o ./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
+	rm -rf ./bin/$(CMD_ROOT)
+	ln -s $$(pwd)/bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT} \
+		./bin/$(CMD_ROOT)
 
 package:
 	docker build --file ./deploy/Dockerfile --tag $(DOCKER_NAMESPACE)/$(DOCKER_IMAGE_NAME):latest .
 save:
 	mkdir -p ./build
-	docker save --output ./build/themigrator.tar.gz $(DOCKER_NAMESPACE)/$(DOCKER_IMAGE_NAME):latest
+	docker save --output ./build/password.tar.gz $(DOCKER_NAMESPACE)/$(DOCKER_IMAGE_NAME):latest
 load:
-	docker load --input ./build/themigrator.tar.gz
+	docker load --input ./build/password.tar.gz
 publish_dockerhub:
 	docker push $(DOCKER_NAMESPACE)/$(DOCKER_IMAGE_NAME):latest
 
 see_ci:
-	xdg-open https://gitlab.com/zephinzer/themigrator/pipelines
+	xdg-open https://gitlab.com/usvc/modules/go/password/pipelines
 
 .ssh:
 	mkdir -p ./.ssh
