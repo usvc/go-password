@@ -1,5 +1,7 @@
 # Password Package
 
+[![pipeline status](https://gitlab.com/usvc/modules/go/password/badges/master/pipeline.svg)](https://gitlab.com/usvc/modules/go/password/-/commits/master)
+
 Passwords: as simple as it gets.
 
 - [Password Package](#password-package)
