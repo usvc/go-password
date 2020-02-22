@@ -2,7 +2,7 @@
 
 [![pipeline status](https://gitlab.com/usvc/modules/go/password/badges/master/pipeline.svg)](https://gitlab.com/usvc/modules/go/password/-/commits/master)
 
-Passwords: as simple as it gets.
+A Go package to manage password hashing, verification, and validation.
 
 - [Password Package](#password-package)
   - [Usage](#usage)
