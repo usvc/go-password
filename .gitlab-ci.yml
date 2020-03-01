@@ -38,6 +38,23 @@ build:
     - GOOS=darwin GOARCH=amd64 make build_production
     - GOOS=windows GOARCH=386 BIN_EXT=.exe make build_production
 
+dockerize:
+  stage: package
+  services:
+    - docker:19.03.1-dind
+  image: docker:19.03.1
+  dependencies:
+    - build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - ./build/*
+  before_script:
+    - apk add git jq make
+  script:
+    - make image
+    - make save
+
 version bump:
   stage: release
   only:
@@ -56,3 +73,22 @@ version bump:
     - git push origin master --verbose --tags
   after_script:
     - rm -rf ~/.ssh/*
+
+dockerhub:
+  stage: publish
+  services:
+    - docker:19.03.1-dind
+  image: docker:19.03.1
+  dependencies:
+    - dockerize
+  only:
+    - tags
+  before_script:
+    - apk add git jq make
+    - docker login ${DOCKER_REGISTRY_URL:-docker.io} -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD}
+  script:
+    - make load
+    - make dockerhub
+  after_script:
+    - docker logout
+    - rm -rf ~/.docker/config.json
