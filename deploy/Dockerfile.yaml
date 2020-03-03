@@ -1,0 +1,10 @@
+schemaVersion: "2.0.0"
+fileExistenceTests:
+  - name: "binary"
+    path: "/bin/password"
+    shouldExist: true
+commandTests:
+  - name: "binary is in path"
+    command: "/bin/password"
+    args: ["--version"]
+    expectedOutput: ["password version"]

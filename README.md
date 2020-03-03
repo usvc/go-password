@@ -1,10 +1,13 @@
-# Password Package
+# Password
+
+[![release github](https://img.shields.io/github/v/release/usvc/go-password?sort=semver)](https://github.com/usvc/go-password)
 
 [![pipeline status](https://gitlab.com/usvc/modules/go/password/badges/master/pipeline.svg)](https://gitlab.com/usvc/modules/go/password/-/commits/master)
+[![Build Status](https://travis-ci.org/usvc/go-semver.svg?branch=master)](https://travis-ci.org/usvc/go-semver)
 
 A Go package to manage password hashing, verification, and validation.
 
-- [Password Package](#password-package)
+- [Password](#password)
   - [Usage](#usage)
     - [Importing](#importing)
     - [Hashing Passwords](#hashing-passwords)
