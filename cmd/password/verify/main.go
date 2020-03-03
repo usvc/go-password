@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/usvc/password"
+	"github.com/usvc/go-password"
 )
 
 type Flags struct {

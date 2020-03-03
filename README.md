@@ -21,7 +21,7 @@ A Go package to manage password hashing, verification, and validation.
 ### Importing
 
 ```go
-import "github.com/usvc/password"
+import "github.com/usvc/go-password"
 ```
 
 ### Hashing Passwords

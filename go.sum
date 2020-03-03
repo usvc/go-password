@@ -94,6 +94,8 @@ github.com/stretchr/testify v1.5.0/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5
 github.com/tinylib/msgp v1.1.0/go.mod h1:+d+yLhGm8mzTaHzB+wgMYrodPfmZrzkirds8fDWklFE=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=
 github.com/usvc/go-log v0.2.3/go.mod h1:RkD3Fqp8Fv8He8Cy00zYts+fsYxI+8/ZJ7IaykbE7NI=
+github.com/usvc/password v1.0.0 h1:/4zmfeU7pbD1Hocwag6Sp7Uaeo7B4HFPYlIDGj3ZkR8=
+github.com/usvc/password v1.0.0/go.mod h1:CR7f6AUcl3JmVaN2HvhWBE221tPRppvMrwSk5E6cLU8=
 github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77/go.mod h1:aYKd//L2LvnjZzWKhF00oedf4jCCReLcmhLdhm1A27Q=
 gitlab.com/usvc/modules/go/log v0.1.2/go.mod h1:zE4v1duN71SjtSTbMk1RYgnPIdgkw7nibBEmOyUTjCw=
 gitlab.com/zephinzer/akounts v0.0.0-20200123015406-0ebd481d3506 h1:9NnR7xh4EZ3RWndtgLXdgps7LYYVwFzzzrwMPpDOiOs=

@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/usvc/password/cmd/password/hash"
-	"github.com/usvc/password/cmd/password/verify"
+	"github.com/usvc/go-password/cmd/password/hash"
+	"github.com/usvc/go-password/cmd/password/verify"
 )
 
 var (
