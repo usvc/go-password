@@ -1,9 +1,9 @@
 # Password
 
-[![release github](https://img.shields.io/github/v/release/usvc/go-password?sort=semver)](https://github.com/usvc/go-password)
+[![latest release](https://badge.fury.io/gh/usvc%2Fgo-password.svg)](https://github.com/usvc/go-password/releases)
 
 [![pipeline status](https://gitlab.com/usvc/modules/go/password/badges/master/pipeline.svg)](https://gitlab.com/usvc/modules/go/password/-/commits/master)
-[![Build Status](https://travis-ci.org/usvc/go-semver.svg?branch=master)](https://travis-ci.org/usvc/go-semver)
+[![Build Status](https://travis-ci.org/usvc/go-password.svg?branch=master)](https://travis-ci.org/usvc/go-password)
 
 A Go package to manage password hashing, verification, and validation.
 
@@ -17,6 +17,10 @@ A Go package to manage password hashing, verification, and validation.
   - [Development Runbook](#development-runbook)
     - [Getting Started](#getting-started)
     - [Continuous Integration (CI) Pipeline](#continuous-integration-ci-pipeline)
+      - [On Github](#on-github)
+        - [Releasing](#releasing)
+      - [On Gitlab](#on-gitlab)
+        - [Version Bumping](#version-bumping)
   - [Licensing](#licensing)
 
 ## Usage
@@ -93,7 +97,27 @@ if err := password.Validate(plaintext, defaultPolicy); err != nil {
 4. Run `make test` to ensure unit tests are passing
 5. Push
 
+
+
 ### Continuous Integration (CI) Pipeline
+
+#### On Github
+
+Github is used to deploy binaries/libraries because of it's ease of access by other developers.
+
+##### Releasing
+
+Releasing of the binaries can be done via Travis CI.
+
+1. On Github, navigate to the [tokens settings page](https://github.com/settings/tokens) (by clicking on your profile picture, selecting **Settings**, selecting **Developer settings** on the left navigation menu, then **Personal Access Tokens** again on the left navigation menu)
+2. Click on **Generate new token**, give the token an appropriate name and check the checkbox on **`public_repo`** within the **repo** header
+3. Copy the generated token
+4. Navigate to [travis-ci.org](https://travis-ci.org) and access the cooresponding repository there. Click on the **More options** button on the top right of the repository page and select **Settings**
+5. Scroll down to the section on **Environment Variables** and enter in a new **NAME** with `RELEASE_TOKEN` and the **VALUE** field cooresponding to the generated personal access token, and hit **Add**
+
+#### On Gitlab
+
+##### Version Bumping
 
 To set up the CI pipeline in Gitlab:
 
