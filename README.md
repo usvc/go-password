@@ -2,9 +2,16 @@
 
 [![latest release](https://badge.fury.io/gh/usvc%2Fgo-password.svg)](https://github.com/usvc/go-password/releases)
 [![pipeline status](https://gitlab.com/usvc/modules/go/password/badges/master/pipeline.svg)](https://gitlab.com/usvc/modules/go/password/-/commits/master)
-[![Build Status](https://travis-ci.org/usvc/go-password.svg?branch=master)](https://travis-ci.org/usvc/go-password)
+[![build status](https://travis-ci.org/usvc/go-password.svg?branch=master)](https://travis-ci.org/usvc/go-password)
 
 A Go package to manage password hashing, verification, and validation.
+
+| | |
+| --- | --- |
+| Github | [https://github.com/usvc/go-password](https://github.com/usvc/go-password) |
+| Gitlab | [https://gitlab.com/usvc/modules/go/password](https://gitlab.com/usvc/modules/go/password) |
+
+- - -
 
 - [Password](#password)
   - [Usage](#usage)
