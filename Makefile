@@ -1,9 +1,14 @@
-PROJECT_NAME=password
 CMD_ROOT=password
+PROJECT_NAME=password
 DOCKER_NAMESPACE=usvc
 DOCKER_IMAGE_NAME=libeg-password
+GIT_COMMIT=$$(git rev-parse --verify HEAD)
+GIT_TAG=$$(git describe --tag $$(git rev-list --tags --max-count=1))
+TIMESTAMP=$(shell date +'%Y%m%d%H%M%S')
 
 -include ./makefile.properties
+
+BIN_PATH=$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
 
 deps:
 	go mod vendor -v
@@ -16,24 +21,27 @@ build:
 	go build -o ./bin/$(CMD_ROOT) ./cmd/$(CMD_ROOT)_${GOOS}_${GOARCH}
 build_production:
 	CGO_ENABLED=0 \
-	go build \
-		-a -v \
-		-ldflags "-X main.Commit=$$(git rev-parse --verify HEAD) \
-			-X main.Version=$$(git describe --tag $$(git rev-list --tags --max-count=1)) \
-			-X main.Timestamp=$$(date +'%Y%m%d%H%M%S') \
+	go build -a -v \
+		-ldflags "-X main.Commit=$(GIT_COMMIT) \
+			-X main.Version=$(GIT_TAG) \
+			-X main.Timestamp=$(TIMESTAMP) \
 			-extldflags 'static' \
 			-s -w" \
-		-o ./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT} \
+		-o ./bin/$(BIN_PATH) \
 		./cmd/$(CMD_ROOT)
-compress_production:
-	ls -lah ./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
-	upx -9 -v -o ./bin/.$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT} \
-		./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
-	upx -t ./bin/.$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
-	rm -rf ./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
-	mv ./bin/.$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT} \
-		./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
-	ls -lah ./bin/$(CMD_ROOT)_$$(go env GOOS)_$$(go env GOARCH)${BIN_EXT}
+	sha256sum -b ./bin/$(BIN_PATH) \
+		| cut -f 1 -d ' ' > ./bin/$(BIN_PATH).sha256
+compress:
+	ls -lah ./bin/$(BIN_PATH)
+	upx -9 -v -o ./bin/.$(BIN_PATH) \
+		./bin/$(BIN_PATH)
+	upx -t ./bin/.$(BIN_PATH)
+	rm -rf ./bin/$(BIN_PATH)
+	mv ./bin/.$(BIN_PATH) \
+		./bin/$(BIN_PATH)
+	sha256sum -b ./bin/$(BIN_PATH) \
+		| cut -f 1 -d ' ' > ./bin/$(BIN_PATH).sha256
+	ls -lah ./bin/$(BIN_PATH)
 
 image:
 	docker build \
